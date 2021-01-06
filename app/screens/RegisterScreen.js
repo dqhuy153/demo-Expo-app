@@ -1,28 +1,33 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
+import { StyleSheet } from "react-native";
 
 import AppScreen from "../components/AppScreen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
+    name: Yup.string().required().min(3).label("Name"),
     email: Yup.string().required().email().label("Email"),
-    password: Yup.string().required().min(4).label("Password"),
+    password: Yup.string().required().min(6).label("Password"),
 });
 
-function LoginScreen(props) {
+function RegisterScreen(props) {
     return (
         <AppScreen style={styles.screen}>
-            <Image
-                style={styles.logo}
-                source={require("../assets/logo-red.png")}
-            />
-
             <AppForm
-                initialValues={{ email: "", password: "" }}
-                onSubmit={(values) => console.log(values)}
+                initialValues={{ name: "", email: "", password: "" }}
+                onSubmit={(value) => console.log(value)}
                 validationSchema={validationSchema}
             >
+                <AppFormField
+                    autoCorrect={false}
+                    iconName="account"
+                    name="name"
+                    placeholder="Name"
+                    textContentType="name"
+                    autoCapitalize="words"
+                />
+
                 <AppFormField
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -39,10 +44,10 @@ function LoginScreen(props) {
                     iconName="lock"
                     name="password"
                     placeholder="Password"
-                    secureTextEntry={true}
+                    secureTextEntry
                     textContentType="password"
                 />
-                <SubmitButton title="login" />
+                <SubmitButton title="register" />
             </AppForm>
         </AppScreen>
     );
@@ -50,15 +55,8 @@ function LoginScreen(props) {
 
 const styles = StyleSheet.create({
     screen: {
-        paddingTop: 50,
-        paddingHorizontal: 10,
-    },
-    logo: {
-        width: 80,
-        height: 80,
-        marginBottom: 20,
-        alignSelf: "center",
+        padding: 10,
     },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

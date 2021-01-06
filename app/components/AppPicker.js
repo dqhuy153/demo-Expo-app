@@ -14,7 +14,7 @@ import AppText from "./AppText";
 import AppScreen from "./AppScreen";
 import PickerItem from "./PickerItem";
 
-function AppPickerH({
+function AppPicker({
     iconName,
     items,
     onSelectItem,
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AppPickerH;
+export default AppPicker;
