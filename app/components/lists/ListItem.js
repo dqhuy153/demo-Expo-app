@@ -1,15 +1,10 @@
 import React from "react";
-import {
-    View,
-    StyleSheet,
-    Image,
-    TouchableOpacity,
-    TouchableHighlight,
-} from "react-native";
+import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colors from "../config/colors";
-import AppText from "./AppText";
+import AppText from "../AppText";
+import defaultStyles from "../../config/styles";
 
 function ListItem({
     title,
@@ -21,18 +16,28 @@ function ListItem({
 }) {
     return (
         <Swipeable renderRightActions={renderRightActions}>
-            <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+            <TouchableHighlight
+                underlayColor={defaultStyles.colors.light}
+                onPress={onPress}
+            >
                 <View style={styles.container}>
                     {IconComponent}
                     {image && <Image style={styles.image} source={image} />}
                     <View style={styles.detailsContainer}>
-                        <AppText style={styles.title}>{title}</AppText>
+                        <AppText numberOfLines={1} style={styles.title}>
+                            {title}
+                        </AppText>
                         {subTitle && (
-                            <AppText style={styles.subTitle}>
+                            <AppText numberOfLines={2} style={styles.subTitle}>
                                 {subTitle}
                             </AppText>
                         )}
                     </View>
+                    <MaterialCommunityIcons
+                        name="chevron-right"
+                        size={30}
+                        color={defaultStyles.colors.medium}
+                    />
                 </View>
             </TouchableHighlight>
         </Swipeable>
@@ -44,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 15,
         alignItems: "center",
-        backgroundColor: colors.white,
+        backgroundColor: defaultStyles.colors.white,
     },
     image: {
         width: 70,
@@ -53,6 +58,7 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         paddingHorizontal: 15,
+        flex: 1,
     },
     title: {
         fontWeight: "700",
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
     subTitle: {
         fontWeight: "400",
         fontSize: 15,
-        color: colors.medium,
+        color: defaultStyles.colors.medium,
     },
 });
 

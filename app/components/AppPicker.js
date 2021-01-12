@@ -18,15 +18,18 @@ function AppPicker({
     iconName,
     items,
     onSelectItem,
+    numberOfColumns,
+    PickerItemComponent = PickerItem,
     placeholder,
     selectedItem,
+    width = "100%",
 }) {
     const [modelVisible, setModelVisible] = useState(false);
 
     return (
         <>
             <TouchableWithoutFeedback onPress={() => setModelVisible(true)}>
-                <View style={styles.container}>
+                <View style={[styles.container, { width }]}>
                     {iconName && (
                         <MaterialCommunityIcons
                             name={iconName}
@@ -35,9 +38,16 @@ function AppPicker({
                             style={styles.icon}
                         />
                     )}
-                    <AppText style={styles.text}>
-                        {selectedItem ? selectedItem.label : placeholder}
-                    </AppText>
+                    {selectedItem ? (
+                        <AppText style={styles.text}>
+                            {selectedItem.label}
+                        </AppText>
+                    ) : (
+                        <AppText style={styles.placeholderText}>
+                            {placeholder}
+                        </AppText>
+                    )}
+
                     <MaterialCommunityIcons
                         name="chevron-down"
                         size={20}
@@ -55,9 +65,10 @@ function AppPicker({
                     <FlatList
                         data={items}
                         keyExtractor={(item) => item.value.toString()}
+                        numColumns={numberOfColumns}
                         renderItem={({ item }) => (
-                            <PickerItem
-                                label={item.label}
+                            <PickerItemComponent
+                                item={item}
                                 onPress={() => {
                                     setModelVisible(false);
                                     onSelectItem(item);
@@ -76,16 +87,19 @@ const styles = StyleSheet.create({
         backgroundColor: defaultStyles.colors.light,
         borderRadius: 25,
         flexDirection: "row",
-        width: "100%",
         padding: 15,
         marginVertical: 10,
         alignItems: "center",
     },
-    text: {
-        flex: 1,
-    },
     icon: {
         marginRight: 10,
+    },
+    placeholderText: {
+        flex: 1,
+        color: defaultStyles.colors.medium,
+    },
+    text: {
+        flex: 1,
     },
 });
 

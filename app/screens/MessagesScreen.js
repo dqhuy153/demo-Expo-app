@@ -1,22 +1,30 @@
 import React, { useState } from "react";
-import { FlatList, StyleSheet, Platform, StatusBar, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
-import ListItem from "../components/ListItem";
+import ListItem from "../components/lists/ListItem";
 import AppScreen from "../components/AppScreen";
-import ListItemSeparator from "../components/ListItemSeparator";
-import ListItemDeleteAction from "../components/ListItemDeleteAction";
+import ListItemSeparator from "../components/lists/ListItemSeparator";
+import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 
 const initialMessages = [
     {
         id: 1,
-        title: "T1",
-        description: "D1",
+        title:
+            'You are probably importing something from "file A" into "file B", then importing something again from "file B" into "file A" . Examine all the imports from both the files and see if there\'s any such cycle.',
+        description:
+            "I created a comp.js file where I could import the components as they are created and export them as modules. All components are then able to be reached from one place. So you can then have something like this in some place... ",
         image: require("../assets/huy.jpg"),
     },
     {
         id: 2,
         title: "T2",
         description: "D2",
+        image: require("../assets/huy.jpg"),
+    },
+    {
+        id: 3,
+        title: "T3",
+        description: "D3",
         image: require("../assets/huy.jpg"),
     },
 ];
@@ -62,6 +70,12 @@ function MessagesScreen(props) {
                             id: 2,
                             title: "T2",
                             description: "D2",
+                            image: require("../assets/huy.jpg"),
+                        },
+                        {
+                            id: 3,
+                            title: "T3",
+                            description: "D3",
                             image: require("../assets/huy.jpg"),
                         },
                     ]);
