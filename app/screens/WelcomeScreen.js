@@ -2,7 +2,7 @@ import React from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import AppButton from "../components/buttons/AppButton";
 import AppText from "../components/AppText";
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
     return (
         <ImageBackground
             style={styles.background}
@@ -21,11 +21,11 @@ function WelcomeScreen(props) {
             <View style={styles.btnsContainer}>
                 <AppButton
                     title="login"
-                    onPress={() => console.log("Tapped Login")}
+                    onPress={() => navigation.navigate("Login")}
                 ></AppButton>
                 <AppButton
                     title="register"
-                    onPress={() => console.log("Tapped Register")}
+                    onPress={() => navigation.navigate("Register")}
                     color="secondary"
                 ></AppButton>
             </View>

@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import useAuth from "../auth/useAuth";
 
 import AppScreen from "../components/AppScreen";
 import Icon from "../components/Icon";
@@ -7,7 +8,9 @@ import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import colors from "../config/colors";
 
-function AccountScreen(props) {
+function AccountScreen({ navigation }) {
+    const { user, logOut } = useAuth();
+
     const menuItems = [
         {
             title: "My Listings",
@@ -22,6 +25,7 @@ function AccountScreen(props) {
                 name: "email",
                 backgroundColor: colors.secondary,
             },
+            targetScreen: "Messages",
         },
     ];
 
@@ -29,8 +33,8 @@ function AccountScreen(props) {
         <AppScreen style={styles.screen}>
             <View style={styles.container}>
                 <ListItem
-                    title="Dang Quang Huy"
-                    subTitle="dqhuy153@gmail.com"
+                    title={user.name}
+                    subTitle={user.email}
                     image={require("../assets/huy.jpg")}
                 />
             </View>
@@ -49,6 +53,9 @@ function AccountScreen(props) {
                                     iconColor={colors.white}
                                 />
                             }
+                            onPress={() =>
+                                navigation.navigate(item.targetScreen)
+                            }
                         />
                     )}
                 />
@@ -57,6 +64,7 @@ function AccountScreen(props) {
             <ListItem
                 title="Log Out"
                 IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+                onPress={() => logOut()}
             />
         </AppScreen>
     );
